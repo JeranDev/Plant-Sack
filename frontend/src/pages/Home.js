@@ -23,8 +23,8 @@ const Home = ({ pageNumber }) => {
   //Fetch Plants
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(loadPlants(pageNumber))
-  }, [dispatch, pageNumber])
+    dispatch(loadPlants())
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(loadMore(pageNumber))

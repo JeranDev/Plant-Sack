@@ -1,14 +1,12 @@
 import axios from 'axios'
 import { plantsURL } from '../api'
 
-export const loadPlants = pageNumber => async dispatch => {
+export const loadPlants = () => async dispatch => {
   dispatch({
     type: 'LOADING_PLANTS',
   })
 
-  const plantsData = await axios.get(plantsURL(), {
-    params: { page: pageNumber },
-  })
+  const plantsData = await axios.get('/api/plants')
   dispatch({
     type: 'FETCH_PLANTS',
     payload: {
