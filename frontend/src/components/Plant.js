@@ -34,8 +34,6 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
           <img src={imageURL} alt={commonName} />
         </Link>
       </Description>
-      {/* <div>{loading && 'Loading...'}</div>
-      <div>{error && 'Error'}</div> */}
     </>
   )
 }

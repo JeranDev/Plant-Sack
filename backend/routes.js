@@ -9,18 +9,22 @@ dotenv.config()
 //Base URL
 const base_url = 'https://trefle.io/api/v1/plants/'
 const apiKey = process.env.TREFLE_API_KEY
-const token = `?token=${apiKey}`
 
 //Fetch Plants
-const plantsURL = () => `${base_url}${token}`
+const plantsURL = () => `${base_url}`
 
 //Plant Details
-const plantDetailURL = scientificName => `${base_url}${scientificName}${token}`
+const plantDetailURL = scientificName => `${base_url}${scientificName}`
 
 router.get(
   '/',
   asyncHandler(async (req, res) => {
-    const plantsData = await axios.get(plantsURL())
+    const plantsData = await axios.get(plantsURL(), {
+      params: {
+        token: apiKey,
+        page: req.params.pageNumber,
+      },
+    })
 
     if (plantsData) {
       res.json(plantsData.data)
@@ -34,13 +38,17 @@ router.get(
 router.get(
   '/:plant',
   asyncHandler(async (req, res) => {
-    const detailData = await axios.get(plantDetailURL(req.params.plant))
+    const detailData = await axios.get(plantDetailURL(req.params.plant), {
+      params: {
+        token: apiKey,
+      },
+    })
 
     if (detailData) {
       res.json(detailData.data)
     } else {
       res.status(404)
-      throw new Error('Product not found')
+      throw new Error('Plant not found')
     }
   })
 )

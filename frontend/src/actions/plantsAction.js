@@ -5,7 +5,7 @@ export const loadPlants = () => async dispatch => {
     type: 'LOADING_PLANTS',
   })
 
-  const plants = await axios.get('/api/plants')
+  const plants = await axios.get(`/api/plants/`)
 
   dispatch({
     type: 'FETCH_PLANTS',

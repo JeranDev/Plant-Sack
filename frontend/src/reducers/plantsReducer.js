@@ -1,5 +1,6 @@
 const initalState = {
   initialPlants: [],
+  pageNumber: 1,
   isLoading: true,
 }
 
@@ -9,6 +10,7 @@ const plantsReducer = (state = initalState, action) => {
       return {
         ...state,
         initialPlants: action.payload.initialPlants,
+        pageNumber: action.payload.pageNumber,
         isLoading: false,
       }
     case 'LOADING_PLANTS':

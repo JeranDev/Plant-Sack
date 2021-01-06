@@ -5,53 +5,72 @@ import { useInView } from 'react-intersection-observer'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { loadPlants } from '../actions/plantsAction'
-import { loadMore } from '../actions/moreAction'
 //Components
 import Plant from '../components/Plant'
 import PlantDetail from '../components/PlantDetail'
 //Styling
 import styled from 'styled-components'
 
-const Home = ({ pageNumber }) => {
+const Home = () => {
+  //Get Plant Data
+  const { initialPlants, isLoading, pageNumber } = useSelector(
+    state => state.plants
+  )
+
   //Get Current Location
   const location = useLocation()
   let pathId = location.pathname.split('/')[2]
 
   //useInView
-  const { ref, inView } = useInView({ threshold: 0.3 })
+  const { ref, inView } = useInView({ threshold: 0 })
 
   //Fetch Plants
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(loadPlants())
-  }, [dispatch])
+    dispatch(loadPlants(pageNumber))
+  }, [dispatch, pageNumber])
 
-  // useEffect(() => {
-  //   dispatch(loadMore(pageNumber))
-  //   return () => {}
-  // }, [dispatch, pageNumber, inView])
-
-  //Get Plant Data
-  const { initialPlants, isLoading } = useSelector(state => state.plants)
+  useEffect(() => {
+    if (inView) {
+      console.log(true)
+    } else {
+      console.log(false)
+    }
+  }, [inView])
 
   return (
     <>
       <Container>
         {isLoading && <div>Loading...</div>}
         {pathId && <PlantDetail />}
-        {initialPlants.map(plant => {
-          return (
-            <Plant
-              key={plant.id}
-              id={plant.id}
-              commonName={plant.common_name}
-              scientificName={plant.scientific_name}
-              imageURL={plant.image_url}
-            />
-          )
+        {initialPlants.map((plant, index) => {
+          if (initialPlants.length === index + 1) {
+            return (
+              <div key={index} ref={ref}>
+                <Plant
+                  key={plant.id}
+                  id={plant.id}
+                  commonName={plant.common_name}
+                  scientificName={plant.scientific_name}
+                  imageURL={plant.image_url}
+                />
+              </div>
+            )
+          } else {
+            return (
+              <div key={index}>
+                <Plant
+                  key={plant.id}
+                  id={plant.id}
+                  commonName={plant.common_name}
+                  scientificName={plant.scientific_name}
+                  imageURL={plant.image_url}
+                />
+              </div>
+            )
+          }
         })}
       </Container>
-      <div ref={ref} />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import config from './config.js'
+import routes from './routes.js'
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   res.send('API is running...')
 })
 
-app.use('/api/plants', config)
+app.use('/api/plants', routes)
 
 app.listen(
   port,
