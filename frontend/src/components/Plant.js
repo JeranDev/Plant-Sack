@@ -29,7 +29,7 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
         className='plant'
       >
         <Link to={`/plant/${id}`}>
-          <h2>{commonName}</h2>
+          <h2>{commonName.toUpperCase()}</h2>
           <h3>{scientificName}</h3>
           <img src={imageURL} alt={commonName} />
         </Link>

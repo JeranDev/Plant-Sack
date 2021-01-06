@@ -1,5 +1,5 @@
 const initalState = {
-  plant: { results: [] },
+  plantDetail: { results: [] },
   isLoading: true,
 }
 
@@ -8,7 +8,7 @@ const detailReducer = (state = initalState, action) => {
     case 'GET_DETAIL':
       return {
         ...state,
-        plant: action.payload.plant,
+        plantDetail: action.payload.plantDetail,
         isLoading: false,
       }
     case 'LOADING_DETAIL':

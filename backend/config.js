@@ -1,7 +1,6 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
 import axios from 'axios'
-import cors from 'cors'
 import dotenv from 'dotenv'
 const router = express.Router()
 
@@ -16,10 +15,7 @@ const token = `?token=${apiKey}`
 const plantsURL = () => `${base_url}${token}`
 
 //Plant Details
-const plantDetailURL = scientificName => {
-  const plantName = scientificName.split(' ').join('-')
-  return `${base_url}${plantName}${token}`
-}
+const plantDetailURL = scientificName => `${base_url}${scientificName}${token}`
 
 router.get(
   '/',
@@ -31,6 +27,20 @@ router.get(
     } else {
       res.status(404)
       throw new Error('Plants not found')
+    }
+  })
+)
+
+router.get(
+  '/:plant',
+  asyncHandler(async (req, res) => {
+    const detailData = await axios.get(plantDetailURL(req.params.plant))
+
+    if (detailData) {
+      res.json(detailData.data)
+    } else {
+      res.status(404)
+      throw new Error('Product not found')
     }
   })
 )

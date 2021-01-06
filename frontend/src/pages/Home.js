@@ -15,7 +15,7 @@ import styled from 'styled-components'
 const Home = ({ pageNumber }) => {
   //Get Current Location
   const location = useLocation()
-  const pathId = location.pathname.split('/')[2]
+  let pathId = location.pathname.split('/')[2]
 
   //useInView
   const { ref, inView } = useInView({ threshold: 0.3 })
@@ -26,10 +26,10 @@ const Home = ({ pageNumber }) => {
     dispatch(loadPlants())
   }, [dispatch])
 
-  useEffect(() => {
-    dispatch(loadMore(pageNumber))
-    return () => {}
-  }, [dispatch, pageNumber, inView])
+  // useEffect(() => {
+  //   dispatch(loadMore(pageNumber))
+  //   return () => {}
+  // }, [dispatch, pageNumber, inView])
 
   //Get Plant Data
   const { initialPlants, isLoading } = useSelector(state => state.plants)
@@ -38,7 +38,7 @@ const Home = ({ pageNumber }) => {
     <>
       <Container>
         {isLoading && <div>Loading...</div>}
-        {pathId && <PlantDetail pathId={pathId} />}
+        {pathId && <PlantDetail />}
         {initialPlants.map(plant => {
           return (
             <Plant

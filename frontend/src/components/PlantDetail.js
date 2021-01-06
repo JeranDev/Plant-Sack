@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-const PlantDetail = ({ pathId }) => {
+const PlantDetail = () => {
   const history = useHistory()
   //Exit Detail
   const exitDetailHandler = e => {
@@ -16,62 +16,65 @@ const PlantDetail = ({ pathId }) => {
   }
 
   //Data
-  const { plant, isLoading } = useSelector(state => state.detail)
+  const { plantDetail, isLoading } = useSelector(state => state.detail)
   return (
     <>
       {!isLoading && (
         <CardShadow className='shadow' onClick={exitDetailHandler}>
-          <Detail layoutId={pathId}>
-            <h1>{plant.data.common_name}</h1>
-            <h2>{plant.data.scientific_name}</h2>
+          <Detail>
+            <h1>{plantDetail.data.common_name.toUpperCase()}</h1>
+            <h2>{plantDetail.data.scientific_name}</h2>
             <Info>
-              <p>Family: {plant.data.family.name}</p>
-              <p>Locations: {plant.data.observations}</p>
-              <p>Discovered: {plant.data.year}</p>
+              <p>Family: {plantDetail.data.family.name}</p>
+              <p>Locations: {plantDetail.data.observations}</p>
+              <p>Discovered: {plantDetail.data.year}</p>
             </Info>
-            <img src={plant.data.image_url} alt={plant.data.common_name} />
-            {plant.data.main_species.images.leaf && (
+            <img
+              src={plantDetail.data.image_url}
+              alt={plantDetail.data.common_name}
+            />
+            {plantDetail.data.main_species.images.leaf && (
               <div>
                 <h3>Leaf</h3>
                 <img
-                  src={plant.data.main_species.images.leaf[0].image_url}
-                  alt={plant.data.common_name}
+                  src={plantDetail.data.main_species.images.leaf[0].image_url}
+                  alt={plantDetail.data.common_name}
                 />
               </div>
             )}
-            {plant.data.main_species.images.bark && (
+            {plantDetail.data.main_species.images.bark && (
               <div>
                 <h3>Bark</h3>
                 <img
-                  src={plant.data.main_species.images.bark[0].image_url}
-                  alt={plant.data.common_name}
+                  src={plantDetail.data.main_species.images.bark[0].image_url}
+                  alt={plantDetail.data.common_name}
                 />
               </div>
             )}
-            {plant.data.main_species.images.flower && (
+            {plantDetail.data.main_species.images.flower && (
               <div>
                 <h3>Flower</h3>
                 <img
-                  src={plant.data.main_species.images.flower[0].image_url}
-                  alt={plant.data.common_name}
+                  src={plantDetail.data.main_species.images.flower[0].image_url}
+                  alt={plantDetail.data.common_name}
                 />
               </div>
             )}
-            {plant.data.main_species.images.habit && (
+            {plantDetail.data.main_species.images.habit && (
               <div>
                 <h3>Habit</h3>
                 <img
-                  src={plant.data.main_species.images.habit[0].image_url}
-                  alt={plant.data.common_name}
+                  src={plantDetail.data.main_species.images.habit[0].image_url}
+                  alt={plantDetail.data.common_name}
                 />
               </div>
             )}
-            {plant.data.main_species.images.fruit && (
+            {plantDetail.data.main_species.images.fruit && (
               <div>
                 <h3>Fruit</h3>
                 <img
-                  src={plant.data.main_species.images.fruit[0].image_url}
-                  alt={plant.data.common_name}
+                  src={plantDetail.data.main_species.images.fruit[0].image_url}
+                  alt={plantDetail.data.common_name}
                 />
               </div>
             )}
@@ -110,6 +113,7 @@ const Detail = styled(motion.div)`
   h1 {
     font-size: 4rem;
     color: green;
+    margin-top: 3rem;
   }
   h2 {
     font-size: 3rem;

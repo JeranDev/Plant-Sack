@@ -1,17 +1,17 @@
 import axios from 'axios'
-import { plantDetailURL } from '../api'
 
 export const loadDetail = scientificName => async dispatch => {
   dispatch({
     type: 'LOADING_DETAIL',
   })
 
-  const detailData = await axios.get(plantDetailURL(scientificName))
+  const plantName = scientificName.split(' ').join('-')
+  const detailData = await axios.get(`/api/plants/${plantName}`)
 
   dispatch({
     type: 'GET_DETAIL',
     payload: {
-      plant: detailData.data,
+      plantDetail: detailData.data,
     },
   })
 }
