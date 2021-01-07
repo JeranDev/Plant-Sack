@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { loadPlants } from '../actions/plantsAction'
+import { loadMorePlants } from '../actions/moreAction'
 //Components
 import Plant from '../components/Plant'
 import PlantDetail from '../components/PlantDetail'
@@ -27,16 +28,14 @@ const Home = () => {
   //Fetch Plants
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(loadPlants(pageNumber))
-  }, [dispatch, pageNumber])
+    dispatch(loadPlants())
+  }, [dispatch])
 
   useEffect(() => {
     if (inView) {
-      console.log(true)
-    } else {
-      console.log(false)
+      dispatch(loadMorePlants(initialPlants, pageNumber))
     }
-  }, [inView])
+  }, [dispatch, initialPlants, pageNumber, inView])
 
   return (
     <>

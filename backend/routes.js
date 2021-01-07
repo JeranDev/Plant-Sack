@@ -22,7 +22,25 @@ router.get(
     const plantsData = await axios.get(plantsURL(), {
       params: {
         token: apiKey,
-        page: req.params.pageNumber,
+      },
+    })
+
+    if (plantsData) {
+      res.json(plantsData.data)
+    } else {
+      res.status(404)
+      throw new Error('Plants not found')
+    }
+  })
+)
+
+router.get(
+  '/page/:number',
+  asyncHandler(async (req, res) => {
+    const plantsData = await axios.get(plantsURL(), {
+      params: {
+        token: apiKey,
+        page: req.params.number,
       },
     })
 

@@ -46,6 +46,7 @@ const Description = styled.div`
   h2 {
     color: green;
     margin-top: 1rem;
+    padding-top: 1rem;
   }
   h3 {
     color: darkgreen;
