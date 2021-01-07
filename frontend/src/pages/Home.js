@@ -14,7 +14,7 @@ import styled from 'styled-components'
 
 const Home = () => {
   //Get Plant Data
-  const { initialPlants, isLoading, pageNumber } = useSelector(
+  const { initialPlants, isLoading, pageNumber, noMore } = useSelector(
     state => state.plants
   )
 
@@ -40,7 +40,6 @@ const Home = () => {
   return (
     <>
       <Container>
-        {isLoading && <div>Loading...</div>}
         {pathId && <PlantDetail />}
         {initialPlants.map((plant, index) => {
           if (initialPlants.length === index + 1) {
@@ -70,9 +69,18 @@ const Home = () => {
           }
         })}
       </Container>
+      {isLoading && <Loading>Loading...</Loading>}
+      {noMore && <Loading>No More Results!</Loading>}
     </>
   )
 }
+
+const Loading = styled.div`
+  text-align: center;
+  margin: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+`
 
 const Container = styled.div`
   text-align: center;

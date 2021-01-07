@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 //Redux
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+//Images
+import noPlant from '../images/noPlant.png'
 
 const PlantDetail = () => {
   const history = useHistory()
@@ -19,18 +21,32 @@ const PlantDetail = () => {
   const { plantDetail, isLoading } = useSelector(state => state.detail)
   return (
     <>
-      {!isLoading && (
+      {!isLoading && plantDetail && (
         <CardShadow className='shadow' onClick={exitDetailHandler}>
           <Detail>
-            <h1>{plantDetail.data.common_name.toUpperCase()}</h1>
+            <h1>
+              {plantDetail.data.common_name
+                ? plantDetail.data.common_name.toUpperCase()
+                : plantDetail.data.scientific_name}
+            </h1>
             <h2>{plantDetail.data.scientific_name}</h2>
             <Info>
-              <p>Family: {plantDetail.data.family.name}</p>
-              <p>Locations: {plantDetail.data.observations}</p>
-              <p>Discovered: {plantDetail.data.year}</p>
+              {plantDetail.data.family && (
+                <p>Family: {plantDetail.data.family.name}</p>
+              )}
+              {plantDetail.data.observations && (
+                <p>Locations: {plantDetail.data.observations}</p>
+              )}
+              {plantDetail.data.year && (
+                <p>Discovered: {plantDetail.data.year}</p>
+              )}
             </Info>
             <img
-              src={plantDetail.data.image_url}
+              src={
+                plantDetail.data.image_url
+                  ? plantDetail.data.image_url
+                  : noPlant
+              }
               alt={plantDetail.data.common_name}
             />
             {plantDetail.data.main_species.images.leaf && (
@@ -78,6 +94,14 @@ const PlantDetail = () => {
                 />
               </div>
             )}
+          </Detail>
+        </CardShadow>
+      )}
+      {!isLoading && !plantDetail && (
+        <CardShadow className='shadow' onClick={exitDetailHandler}>
+          <Detail>
+            <h1>Plant Data Not Found</h1>
+            <img src={noPlant} alt='No Plant Found' />
           </Detail>
         </CardShadow>
       )}
@@ -142,7 +166,8 @@ const Detail = styled(motion.div)`
 
 const Info = styled(motion.div)`
   margin-bottom: 2rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
 `
 
 export default PlantDetail

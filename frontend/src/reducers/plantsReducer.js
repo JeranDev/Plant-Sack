@@ -1,7 +1,8 @@
 const initalState = {
   initialPlants: [],
-  pageNumber: 2,
+  pageNumber: 18875,
   isLoading: true,
+  noMore: false,
 }
 
 const plantsReducer = (state = initalState, action) => {
@@ -26,6 +27,12 @@ const plantsReducer = (state = initalState, action) => {
         ],
         pageNumber: action.payload.pageNumber,
         isLoading: false,
+      }
+    case 'LAST_PAGE':
+      return {
+        ...state,
+        isLoading: false,
+        noMore: true,
       }
     default:
       return { ...state }

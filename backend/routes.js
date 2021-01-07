@@ -29,7 +29,6 @@ router.get(
       res.json(plantsData.data)
     } else {
       res.status(404)
-      throw new Error('Plants not found')
     }
   })
 )
@@ -48,7 +47,6 @@ router.get(
       res.json(plantsData.data)
     } else {
       res.status(404)
-      throw new Error('Plants not found')
     }
   })
 )
@@ -56,17 +54,19 @@ router.get(
 router.get(
   '/:plant',
   asyncHandler(async (req, res) => {
-    const detailData = await axios.get(plantDetailURL(req.params.plant), {
-      params: {
-        token: apiKey,
-      },
-    })
+    const detailData = await axios
+      .get(plantDetailURL(req.params.plant), {
+        params: {
+          token: apiKey,
+        },
+      })
+      .catch(() => {
+        //Handled in PlantDetail.js
+        res.send('')
+      })
 
     if (detailData) {
       res.json(detailData.data)
-    } else {
-      res.status(404)
-      throw new Error('Plant not found')
     }
   })
 )

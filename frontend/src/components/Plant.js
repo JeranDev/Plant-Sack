@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { loadDetail } from '../actions/detailAction'
 import { Link, useHistory } from 'react-router-dom'
+//Images
+import noPlant from '../images/noPlant.png'
 
 const Plant = ({ id, commonName, scientificName, imageURL }) => {
   //Fix Scrolling
@@ -29,9 +31,9 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
         className='plant'
       >
         <Link to={`/plant/${id}`}>
-          <h2>{commonName.toUpperCase()}</h2>
+          <h2>{commonName ? commonName.toUpperCase() : scientificName}</h2>
           <h3>{scientificName}</h3>
-          <img src={imageURL} alt={commonName} />
+          <img src={imageURL ? imageURL : noPlant} alt={commonName} />
         </Link>
       </Description>
     </>
@@ -40,7 +42,7 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
 
 const Description = styled.div`
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
-  margin-top: 2rem;
+  margin: 1rem 0;
   border-radius: 15px;
   cursor: pointer;
   h2 {
