@@ -1,6 +1,6 @@
 const initalState = {
   initialPlants: [],
-  pageNumber: 18875,
+  pageNumber: 2,
   isLoading: true,
   noMore: false,
 }
