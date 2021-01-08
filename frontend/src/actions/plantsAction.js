@@ -43,6 +43,15 @@ export const loadMorePlants = (initialPlants, pageNumber) => async dispatch => {
   }
 }
 
+export const addQuery = query => async dispatch => {
+  dispatch({
+    type: 'ADD_QUERY',
+    payload: {
+      query: query,
+    },
+  })
+}
+
 export const searchPlants = query => async dispatch => {
   dispatch({
     type: 'LOADING_PLANTS',
@@ -56,4 +65,36 @@ export const searchPlants = query => async dispatch => {
       searchedPlants: search.data.data,
     },
   })
+}
+
+export const searchMorePlants = (
+  initialPlants,
+  pageNumber,
+  query
+) => async dispatch => {
+  dispatch({
+    type: 'LOADING_PLANTS',
+  })
+
+  const search = await axios.get(`/api/plants/search/${query}/${pageNumber}`)
+
+  const lastPage = search.data.links.last
+  let lastPageNumber = lastPage.match(/\d/g)
+  lastPageNumber = lastPageNumber.join('')
+  lastPageNumber = lastPageNumber.slice(1)
+
+  if (pageNumber < lastPageNumber) {
+    dispatch({
+      type: 'SEARCH_MORE_PLANTS',
+      payload: {
+        morePlants: search.data.data,
+        searchedPlants: initialPlants,
+        pageNumber: pageNumber + 1,
+      },
+    })
+  } else {
+    dispatch({
+      type: 'LAST_PAGE',
+    })
+  }
 }

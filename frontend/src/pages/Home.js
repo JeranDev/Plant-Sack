@@ -4,7 +4,11 @@ import { useLocation } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { loadPlants, loadMorePlants } from '../actions/plantsAction'
+import {
+  loadPlants,
+  loadMorePlants,
+  searchMorePlants,
+} from '../actions/plantsAction'
 //Components
 import Plant from '../components/Plant'
 import PlantDetail from '../components/PlantDetail'
@@ -13,16 +17,22 @@ import styled from 'styled-components'
 
 const Home = () => {
   //Get Plant Data
-  const { initialPlants, isLoading, pageNumber, noMore } = useSelector(
-    state => state.plants
-  )
+  const {
+    initialPlants,
+    isLoading,
+    pageNumber,
+    searched,
+    query,
+    noMore,
+  } = useSelector(state => state.plants)
 
   //Get Current Location
   const location = useLocation()
   let pathId = location.pathname.split('/')[2]
 
   //useInView
-  const { ref, inView } = useInView({ threshold: 0 })
+  const [refOne, inViewOne] = useInView({ threshold: 0 })
+  const [refTwo, inViewTwo] = useInView({ threshold: 0 })
 
   //Fetch Plants
   const dispatch = useDispatch()
@@ -31,10 +41,18 @@ const Home = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (inView) {
+    if (inViewOne) {
       dispatch(loadMorePlants(initialPlants, pageNumber))
     }
-  }, [dispatch, initialPlants, pageNumber, inView])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inViewOne])
+
+  useEffect(() => {
+    if (inViewTwo) {
+      dispatch(searchMorePlants(initialPlants, pageNumber, query))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inViewTwo])
 
   return (
     <>
@@ -43,7 +61,7 @@ const Home = () => {
         {initialPlants.map((plant, index) => {
           if (initialPlants.length === index + 1) {
             return (
-              <div key={index} ref={ref}>
+              <div key={index} ref={searched ? refTwo : refOne}>
                 <Plant
                   key={plant.id}
                   id={plant.id}

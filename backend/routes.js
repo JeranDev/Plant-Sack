@@ -17,6 +17,7 @@ const searchPlantsURL = () => `${base_url}search`
 //Plant Details
 const plantDetailURL = scientificName => `${base_url}${scientificName}`
 
+//Initial Plants
 router.get(
   '/',
   asyncHandler(async (req, res) => {
@@ -34,6 +35,7 @@ router.get(
   })
 )
 
+//Fetch More Initial Plants
 router.get(
   '/page/:number',
   asyncHandler(async (req, res) => {
@@ -52,8 +54,9 @@ router.get(
   })
 )
 
+//Search Plants
 router.get(
-  '/search/:query',
+  '/search/:query/',
   asyncHandler(async (req, res) => {
     const plantsData = await axios.get(searchPlantsURL(), {
       params: {
@@ -61,6 +64,7 @@ router.get(
         q: req.params.query,
       },
     })
+    console.log(req.params)
 
     if (plantsData) {
       res.json(plantsData.data)
@@ -70,6 +74,29 @@ router.get(
   })
 )
 
+//Fetch More Searched Plants
+router.get(
+  '/search/:query/:page',
+  asyncHandler(async (req, res) => {
+    const plantsData = await axios.get(searchPlantsURL(), {
+      params: {
+        token: apiKey,
+        page: req.params.page,
+        q: req.params.query,
+      },
+    })
+    console.log(plantsData.data)
+    console.log(req.params)
+
+    if (plantsData) {
+      res.json(plantsData.data)
+    } else {
+      res.status(404)
+    }
+  })
+)
+
+//Plant Details
 router.get(
   '/:plant',
   asyncHandler(async (req, res) => {

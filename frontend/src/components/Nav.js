@@ -1,8 +1,6 @@
-//State
-import { useState } from 'react'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { searchPlants, loadPlants } from '../actions/plantsAction'
+import { searchPlants, loadPlants, addQuery } from '../actions/plantsAction'
 //Styling
 import styled from 'styled-components'
 //Images
@@ -11,17 +9,15 @@ import loadingGif from '../images/loading.gif'
 const Nav = () => {
   //State
   const dispatch = useDispatch()
-  const [textInput, setTextInput] = useState('')
-  const { isLoading } = useSelector(state => state.plants)
+  const { isLoading, query } = useSelector(state => state.plants)
 
   const handleInput = e => {
-    setTextInput(e.target.value)
+    dispatch(addQuery(e.target.value))
   }
 
-  const handleClick = e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    dispatch(searchPlants(textInput))
-    setTextInput('')
+    dispatch(searchPlants(query))
   }
 
   const clearSearched = () => {
@@ -33,11 +29,9 @@ const Nav = () => {
       <Logo>
         <h1 onClick={clearSearched}>Plant DB</h1>
       </Logo>
-      <form>
-        <input type='text' value={textInput} onChange={handleInput} />
-        <button type='submit' onClick={handleClick}>
-          Search
-        </button>
+      <form onSubmit={handleSubmit}>
+        <input type='text' onChange={handleInput} value={query} required />
+        <button type='submit'>Search</button>
       </form>
       {isLoading && <LoadingGifStyled src={loadingGif} />}
     </Header>
