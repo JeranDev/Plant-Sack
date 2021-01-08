@@ -27,7 +27,7 @@ const PlantDetail = () => {
             <h1>
               {plantDetail.data.common_name
                 ? plantDetail.data.common_name.toUpperCase()
-                : plantDetail.data.scientific_name}
+                : plantDetail.data.scientific_name.toUpperCase()}
             </h1>
             <h2>{plantDetail.data.scientific_name}</h2>
             <Info>

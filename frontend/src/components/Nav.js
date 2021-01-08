@@ -30,7 +30,9 @@ const Nav = () => {
 
   return (
     <Header>
-      <h1 onClick={clearSearched}>Plant DB</h1>
+      <Logo>
+        <h1 onClick={clearSearched}>Plant DB</h1>
+      </Logo>
       <form>
         <input type='text' value={textInput} onChange={handleInput} />
         <button type='submit' onClick={handleClick}>
@@ -44,13 +46,6 @@ const Nav = () => {
 
 const Header = styled.div`
   text-align: center;
-  h1 {
-    font-size: 3rem;
-    font-family: 'Yellowtail', cursive;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-  }
   input {
     width: 30vw;
     text-align: center;
@@ -69,6 +64,17 @@ const Header = styled.div`
     input {
       width: 50vw;
     }
+  }
+`
+
+const Logo = styled.div`
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+  h1 {
+    font-size: 3rem;
+    font-family: 'Yellowtail', cursive;
+    cursor: pointer;
+    display: inline;
   }
 `
 
