@@ -4,8 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { loadPlants } from '../actions/plantsAction'
-import { loadMorePlants } from '../actions/moreAction'
+import { loadPlants, loadMorePlants } from '../actions/plantsAction'
 //Components
 import Plant from '../components/Plant'
 import PlantDetail from '../components/PlantDetail'

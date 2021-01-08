@@ -46,11 +46,13 @@ const Description = styled.div`
   border-radius: 15px;
   cursor: pointer;
   h2 {
+    font-size: 1.3rem;
     color: green;
     margin-top: 1rem;
     padding-top: 1rem;
   }
   h3 {
+    font-size: 1rem;
     color: darkgreen;
     margin-bottom: 1rem;
   }

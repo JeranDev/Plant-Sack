@@ -12,6 +12,7 @@ const apiKey = process.env.TREFLE_API_KEY
 
 //Fetch Plants
 const plantsURL = () => `${base_url}`
+const searchPlantsURL = () => `${base_url}search`
 
 //Plant Details
 const plantDetailURL = scientificName => `${base_url}${scientificName}`
@@ -40,6 +41,24 @@ router.get(
       params: {
         token: apiKey,
         page: req.params.number,
+      },
+    })
+
+    if (plantsData) {
+      res.json(plantsData.data)
+    } else {
+      res.status(404)
+    }
+  })
+)
+
+router.get(
+  '/search/:query',
+  asyncHandler(async (req, res) => {
+    const plantsData = await axios.get(searchPlantsURL(), {
+      params: {
+        token: apiKey,
+        q: req.params.query,
       },
     })
 

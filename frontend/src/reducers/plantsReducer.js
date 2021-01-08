@@ -28,6 +28,12 @@ const plantsReducer = (state = initalState, action) => {
         pageNumber: action.payload.pageNumber,
         isLoading: false,
       }
+    case 'SEARCH_PLANTS':
+      return {
+        ...state,
+        initialPlants: action.payload.searchedPlants,
+        isLoading: false,
+      }
     case 'LAST_PAGE':
       return {
         ...state,
