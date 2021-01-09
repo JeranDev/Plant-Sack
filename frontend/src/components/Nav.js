@@ -21,7 +21,8 @@ const Nav = () => {
     e.preventDefault()
     const resetPlants = []
     const resetPage = 1
-    dispatch(searchPlants(resetPlants, resetPage, query))
+    const whitelistQuery = query.replace(/[^a-zA-Z-\s]/g, '')
+    dispatch(searchPlants(resetPlants, resetPage, whitelistQuery))
   }
 
   const clearSearched = () => {

@@ -46,6 +46,10 @@ export const searchPlants = (
     type: 'LOADING_PLANTS',
   })
 
+  if (!query) {
+    query = 'monkey'
+  }
+
   const search = await axios.get(`/api/plants/search/${query}/${pageNumber}`)
 
   const lastPage = search.data.links.last
