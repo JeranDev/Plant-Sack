@@ -10,6 +10,8 @@ import Plant from '../components/Plant'
 import PlantDetail from '../components/PlantDetail'
 //Styling
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { fadeIn } from '../animations'
 
 const Home = () => {
   //Get Plant Data
@@ -39,6 +41,7 @@ const Home = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadPlants(plants, pageNumber))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
 
   useEffect(() => {
@@ -87,20 +90,28 @@ const Home = () => {
           }
         })}
       </Container>
-      {isLoading && <Loading>Loading...</Loading>}
-      {noMore && <Loading>No More Results!</Loading>}
+      {isLoading && (
+        <Loading variants={fadeIn} initial='hidden' animate='show'>
+          Loading...
+        </Loading>
+      )}
+      {noMore && (
+        <Loading variants={fadeIn} initial='hidden' animate='show'>
+          No More Results!
+        </Loading>
+      )}
     </>
   )
 }
 
-const Loading = styled.div`
+const Loading = styled(motion.div)`
   text-align: center;
   margin: 2rem;
   font-size: 1.5rem;
   font-weight: bold;
 `
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   text-align: center;
   margin-top: 2rem;
   display: flex;

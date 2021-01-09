@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { searchPlants, loadPlants, addQuery } from '../actions/plantsAction'
 //Styling
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { fadeIn } from '../animations'
 //Images
-import loadingGif from '../images/loading.gif'
+import loadingGif from '../images/plant-gang.gif'
 
 const Nav = () => {
   //State
   const dispatch = useDispatch()
-  const { isLoading, query, pageNumber, searchedPlants } = useSelector(
-    state => state.plants
-  )
+  const { isLoading, query } = useSelector(state => state.plants)
 
   const handleInput = e => {
     dispatch(addQuery(e.target.value))
@@ -31,7 +31,7 @@ const Nav = () => {
   }
 
   return (
-    <Header>
+    <Header variants={fadeIn} initial='hidden' animate='show'>
       <Logo>
         <h1 onClick={clearSearched}>Plant DB</h1>
       </Logo>
@@ -44,7 +44,7 @@ const Nav = () => {
   )
 }
 
-const Header = styled.div`
+const Header = styled(motion.div)`
   text-align: center;
   input {
     width: 20vw;
@@ -66,7 +66,7 @@ const Header = styled.div`
   }
 `
 
-const Logo = styled.div`
+const Logo = styled(motion.div)`
   margin-top: 3rem;
   margin-bottom: 0.5rem;
   h1 {
@@ -77,10 +77,10 @@ const Logo = styled.div`
   }
 `
 
-const LoadingGifStyled = styled.img`
+const LoadingGifStyled = styled(motion.img)`
   width: 100px;
   height: 100px;
-  margin-top: 1rem;
+  margin: 1rem auto 0 auto;
 `
 
 export default Nav

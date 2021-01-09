@@ -14,6 +14,7 @@ const plantsReducer = (state = initalState, action) => {
       return {
         ...state,
         isLoading: true,
+        noMore: false,
       }
     case 'FETCH_PLANTS':
       return {

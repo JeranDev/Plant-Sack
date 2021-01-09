@@ -1,9 +1,11 @@
-//Styling
-import styled from 'styled-components'
 //Redux
 import { useDispatch } from 'react-redux'
 import { loadDetail } from '../actions/detailAction'
 import { Link, useHistory } from 'react-router-dom'
+//Styling
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { popUp } from '../animations'
 //Images
 import noPlant from '../images/noPlant.png'
 
@@ -25,6 +27,9 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
   return (
     <>
       <Description
+        variants={popUp}
+        initial='hidden'
+        animate='show'
         onClick={loadDetailHandler}
         key={id}
         id={id}
@@ -44,7 +49,7 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
   )
 }
 
-const Description = styled.div`
+const Description = styled(motion.div)`
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
   margin: 1rem 0;
   border-radius: 15px;

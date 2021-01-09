@@ -1,9 +1,10 @@
-//Styling
-import styled from 'styled-components'
-import { motion } from 'framer-motion'
 //Redux
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+//Styling
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { popUp } from '../animations'
 //Images
 import noPlant from '../images/noPlant.png'
 
@@ -23,25 +24,25 @@ const PlantDetail = () => {
     <>
       {!isLoading && plantDetail && (
         <CardShadow className='shadow' onClick={exitDetailHandler}>
-          <Detail>
-            <h1>
+          <Detail variants={popUp} initial='hidden' animate='show'>
+            <motion.h1>
               {plantDetail.data.common_name
                 ? plantDetail.data.common_name.toUpperCase()
                 : plantDetail.data.scientific_name.toUpperCase()}
-            </h1>
-            <h2>{plantDetail.data.scientific_name}</h2>
+            </motion.h1>
+            <motion.h2>{plantDetail.data.scientific_name}</motion.h2>
             <Info>
               {plantDetail.data.family && (
-                <p>Family: {plantDetail.data.family.name}</p>
+                <motion.p>Family: {plantDetail.data.family.name}</motion.p>
               )}
               {plantDetail.data.observations && (
-                <p>Locations: {plantDetail.data.observations}</p>
+                <motion.p>Locations: {plantDetail.data.observations}</motion.p>
               )}
               {plantDetail.data.year && (
-                <p>Discovered: {plantDetail.data.year}</p>
+                <motion.p>Discovered: {plantDetail.data.year}</motion.p>
               )}
             </Info>
-            <img
+            <motion.img
               src={
                 plantDetail.data.image_url
                   ? plantDetail.data.image_url
@@ -50,58 +51,58 @@ const PlantDetail = () => {
               alt={plantDetail.data.common_name}
             />
             {plantDetail.data.main_species.images.leaf && (
-              <div>
-                <h3>Leaf</h3>
-                <img
+              <motion.div>
+                <motion.h3>Leaf</motion.h3>
+                <motion.img
                   src={plantDetail.data.main_species.images.leaf[0].image_url}
                   alt={plantDetail.data.common_name}
                 />
-              </div>
+              </motion.div>
             )}
             {plantDetail.data.main_species.images.bark && (
-              <div>
-                <h3>Bark</h3>
-                <img
+              <motion.div>
+                <motion.h3>Bark</motion.h3>
+                <motion.img
                   src={plantDetail.data.main_species.images.bark[0].image_url}
                   alt={plantDetail.data.common_name}
                 />
-              </div>
+              </motion.div>
             )}
             {plantDetail.data.main_species.images.flower && (
-              <div>
-                <h3>Flower</h3>
-                <img
+              <motion.div>
+                <motion.h3>Flower</motion.h3>
+                <motion.img
                   src={plantDetail.data.main_species.images.flower[0].image_url}
                   alt={plantDetail.data.common_name}
                 />
-              </div>
+              </motion.div>
             )}
             {plantDetail.data.main_species.images.habit && (
-              <div>
-                <h3>Habit</h3>
-                <img
+              <motion.div>
+                <motion.h3>Habit</motion.h3>
+                <motion.img
                   src={plantDetail.data.main_species.images.habit[0].image_url}
                   alt={plantDetail.data.common_name}
                 />
-              </div>
+              </motion.div>
             )}
             {plantDetail.data.main_species.images.fruit && (
-              <div>
-                <h3>Fruit</h3>
-                <img
+              <motion.div>
+                <motion.h3>Fruit</motion.h3>
+                <motion.img
                   src={plantDetail.data.main_species.images.fruit[0].image_url}
                   alt={plantDetail.data.common_name}
                 />
-              </div>
+              </motion.div>
             )}
           </Detail>
         </CardShadow>
       )}
       {!isLoading && !plantDetail && (
         <CardShadow className='shadow' onClick={exitDetailHandler}>
-          <Detail>
-            <h1>Plant Data Not Found</h1>
-            <img src={noPlant} alt='No Plant Found' />
+          <Detail variants={popUp} initial='hidden' animate='show'>
+            <motion.h1>Plant Data Not Found</motion.h1>
+            <motion.img src={noPlant} alt='No Plant Found' />
           </Detail>
         </CardShadow>
       )}
