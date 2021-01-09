@@ -4,11 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  loadPlants,
-  loadMorePlants,
-  searchMorePlants,
-} from '../actions/plantsAction'
+import { loadPlants, searchPlants } from '../actions/plantsAction'
 //Components
 import Plant from '../components/Plant'
 import PlantDetail from '../components/PlantDetail'
@@ -19,12 +15,17 @@ const Home = () => {
   //Get Plant Data
   const {
     initialPlants,
+    searchedPlants,
     isLoading,
     pageNumber,
     searched,
     query,
     noMore,
   } = useSelector(state => state.plants)
+
+  //Render Initial Plants or Searched Plants
+  let plants
+  searched ? (plants = searchedPlants) : (plants = initialPlants)
 
   //Get Current Location
   const location = useLocation()
@@ -37,19 +38,19 @@ const Home = () => {
   //Fetch Plants
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(loadPlants())
+    dispatch(loadPlants(plants, pageNumber))
   }, [dispatch])
 
   useEffect(() => {
     if (inViewOne) {
-      dispatch(loadMorePlants(initialPlants, pageNumber))
+      dispatch(loadPlants(plants, pageNumber))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewOne])
 
   useEffect(() => {
     if (inViewTwo) {
-      dispatch(searchMorePlants(initialPlants, pageNumber, query))
+      dispatch(searchPlants(plants, pageNumber, query))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewTwo])
@@ -58,8 +59,8 @@ const Home = () => {
     <>
       <Container>
         {pathId && <PlantDetail />}
-        {initialPlants.map((plant, index) => {
-          if (initialPlants.length === index + 1) {
+        {plants.map((plant, index) => {
+          if (plants.length === index + 1 && !noMore) {
             return (
               <div key={index} ref={searched ? refTwo : refOne}>
                 <Plant

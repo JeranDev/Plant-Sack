@@ -9,7 +9,9 @@ import loadingGif from '../images/loading.gif'
 const Nav = () => {
   //State
   const dispatch = useDispatch()
-  const { isLoading, query } = useSelector(state => state.plants)
+  const { isLoading, query, pageNumber, searchedPlants } = useSelector(
+    state => state.plants
+  )
 
   const handleInput = e => {
     dispatch(addQuery(e.target.value))
@@ -17,11 +19,15 @@ const Nav = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(searchPlants(query))
+    const resetPlants = []
+    const resetPage = 1
+    dispatch(searchPlants(resetPlants, resetPage, query))
   }
 
   const clearSearched = () => {
-    dispatch(loadPlants())
+    const resetPlants = []
+    const resetPage = 1
+    dispatch(loadPlants(resetPlants, resetPage))
   }
 
   return (
@@ -41,17 +47,16 @@ const Nav = () => {
 const Header = styled.div`
   text-align: center;
   input {
-    width: 30vw;
+    width: 20vw;
     text-align: center;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    padding: 1rem 0;
   }
   button {
     color: white;
     background: green;
-    padding: 0.5rem;
+    padding: 1rem;
     border: none;
-    margin-left: 0.5rem;
-    border-radius: 10%;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
   @media screen and (max-width: 1000px) {

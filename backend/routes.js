@@ -17,25 +17,7 @@ const searchPlantsURL = () => `${base_url}search`
 //Plant Details
 const plantDetailURL = scientificName => `${base_url}${scientificName}`
 
-//Initial Plants
-router.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    const plantsData = await axios.get(plantsURL(), {
-      params: {
-        token: apiKey,
-      },
-    })
-
-    if (plantsData) {
-      res.json(plantsData.data)
-    } else {
-      res.status(404)
-    }
-  })
-)
-
-//Fetch More Initial Plants
+//Fetch Plants
 router.get(
   '/page/:number',
   asyncHandler(async (req, res) => {
@@ -56,26 +38,6 @@ router.get(
 
 //Search Plants
 router.get(
-  '/search/:query/',
-  asyncHandler(async (req, res) => {
-    const plantsData = await axios.get(searchPlantsURL(), {
-      params: {
-        token: apiKey,
-        q: req.params.query,
-      },
-    })
-    console.log(req.params)
-
-    if (plantsData) {
-      res.json(plantsData.data)
-    } else {
-      res.status(404)
-    }
-  })
-)
-
-//Fetch More Searched Plants
-router.get(
   '/search/:query/:page',
   asyncHandler(async (req, res) => {
     const plantsData = await axios.get(searchPlantsURL(), {
@@ -85,8 +47,6 @@ router.get(
         q: req.params.query,
       },
     })
-    console.log(plantsData.data)
-    console.log(req.params)
 
     if (plantsData) {
       res.json(plantsData.data)

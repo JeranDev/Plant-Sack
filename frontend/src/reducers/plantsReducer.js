@@ -1,10 +1,11 @@
 const initalState = {
   initialPlants: [],
-  pageNumber: 2,
+  searchedPlants: [],
+  pageNumber: 1,
   isLoading: true,
   searched: false,
-  query: '',
   noMore: false,
+  query: '',
 }
 
 const plantsReducer = (state = initalState, action) => {
@@ -17,20 +18,13 @@ const plantsReducer = (state = initalState, action) => {
     case 'FETCH_PLANTS':
       return {
         ...state,
-        initialPlants: action.payload.initialPlants,
-        isLoading: false,
-        searched: false,
-        pageNumber: 2,
-      }
-    case 'FETCH_MORE_PLANTS':
-      return {
-        ...state,
         initialPlants: [
           ...action.payload.initialPlants,
           ...action.payload.morePlants,
         ],
         pageNumber: action.payload.pageNumber,
         isLoading: false,
+        searched: false,
       }
     case 'ADD_QUERY':
       return {
@@ -40,20 +34,13 @@ const plantsReducer = (state = initalState, action) => {
     case 'SEARCH_PLANTS':
       return {
         ...state,
-        initialPlants: action.payload.searchedPlants,
-        isLoading: false,
-        searched: true,
-        pageNumber: 2,
-      }
-    case 'SEARCH_MORE_PLANTS':
-      return {
-        ...state,
-        initialPlants: [
+        searchedPlants: [
           ...action.payload.searchedPlants,
           ...action.payload.morePlants,
         ],
         pageNumber: action.payload.pageNumber,
         isLoading: false,
+        searched: true,
       }
     case 'LAST_PAGE':
       return {

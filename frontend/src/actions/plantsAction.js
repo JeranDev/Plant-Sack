@@ -1,21 +1,6 @@
 import axios from 'axios'
 
-export const loadPlants = () => async dispatch => {
-  dispatch({
-    type: 'LOADING_PLANTS',
-  })
-
-  const plants = await axios.get(`/api/plants/`)
-
-  dispatch({
-    type: 'FETCH_PLANTS',
-    payload: {
-      initialPlants: plants.data.data,
-    },
-  })
-}
-
-export const loadMorePlants = (initialPlants, pageNumber) => async dispatch => {
+export const loadPlants = (initialPlants, pageNumber) => async dispatch => {
   dispatch({
     type: 'LOADING_PLANTS',
   })
@@ -29,7 +14,7 @@ export const loadMorePlants = (initialPlants, pageNumber) => async dispatch => {
 
   if (pageNumber < lastPageNumber) {
     dispatch({
-      type: 'FETCH_MORE_PLANTS',
+      type: 'FETCH_PLANTS',
       payload: {
         morePlants: plants.data.data,
         initialPlants: initialPlants,
@@ -52,23 +37,8 @@ export const addQuery = query => async dispatch => {
   })
 }
 
-export const searchPlants = query => async dispatch => {
-  dispatch({
-    type: 'LOADING_PLANTS',
-  })
-
-  const search = await axios.get(`/api/plants/search/${query}`)
-
-  dispatch({
-    type: 'SEARCH_PLANTS',
-    payload: {
-      searchedPlants: search.data.data,
-    },
-  })
-}
-
-export const searchMorePlants = (
-  initialPlants,
+export const searchPlants = (
+  searchedPlants,
   pageNumber,
   query
 ) => async dispatch => {
@@ -85,12 +55,25 @@ export const searchMorePlants = (
 
   if (pageNumber < lastPageNumber) {
     dispatch({
-      type: 'SEARCH_MORE_PLANTS',
+      type: 'SEARCH_PLANTS',
       payload: {
         morePlants: search.data.data,
-        searchedPlants: initialPlants,
+        searchedPlants: searchedPlants,
         pageNumber: pageNumber + 1,
       },
+    })
+  } else if ((pageNumber = 1)) {
+    dispatch({
+      type: 'SEARCH_PLANTS',
+      payload: {
+        morePlants: search.data.data,
+        searchedPlants: searchedPlants,
+        pageNumber: pageNumber,
+      },
+    })
+
+    dispatch({
+      type: 'LAST_PAGE',
     })
   } else {
     dispatch({
