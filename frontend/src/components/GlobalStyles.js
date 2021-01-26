@@ -1,4 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
+import burlap from '../images/burlap.jpeg'
+
+const burlapBackground = `url(${burlap})`
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -6,6 +9,9 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+  }
+  html {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), ${burlapBackground};
   }
   body {
     font-family: 'Merriweather', serif;

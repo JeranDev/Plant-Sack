@@ -23,3 +23,14 @@ export const popUp = {
     },
   },
 }
+
+export const spin = {
+  show: {
+    rotate: 360,
+    transition: {
+      loop: Infinity,
+      duration: 1,
+      ease: 'linear',
+    },
+  },
+}

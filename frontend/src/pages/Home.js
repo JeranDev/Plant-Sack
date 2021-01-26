@@ -107,7 +107,7 @@ const Home = () => {
 const Loading = styled(motion.div)`
   text-align: center;
   margin: 2rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
 `
 

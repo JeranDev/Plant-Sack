@@ -36,13 +36,13 @@ const Plant = ({ id, commonName, scientificName, imageURL }) => {
         className='plant'
       >
         <Link to={`/plant/${id}`}>
-          <h2>
+          <motion.h2>
             {commonName
               ? commonName.toUpperCase()
               : scientificName.toUpperCase()}
-          </h2>
-          <h3>{scientificName}</h3>
-          <img src={imageURL ? imageURL : noPlant} alt={commonName} />
+          </motion.h2>
+          <motion.h3>{scientificName}</motion.h3>
+          <motion.img src={imageURL ? imageURL : noPlant} alt={commonName} />
         </Link>
       </Description>
     </>
@@ -54,6 +54,7 @@ const Description = styled(motion.div)`
   margin: 1rem 0;
   border-radius: 15px;
   cursor: pointer;
+  background: #fff;
   h2 {
     font-size: 1.3rem;
     color: green;

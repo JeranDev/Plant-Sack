@@ -4,9 +4,9 @@ import { searchPlants, loadPlants, addQuery } from '../actions/plantsAction'
 //Styling
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { fadeIn } from '../animations'
+import { fadeIn, spin } from '../animations'
 //Images
-import loadingGif from '../images/plant-gang.gif'
+import loadingPic from '../images/cute-plant.png'
 
 const Nav = () => {
   //State
@@ -34,13 +34,15 @@ const Nav = () => {
   return (
     <Header variants={fadeIn} initial='hidden' animate='show'>
       <Logo>
-        <h1 onClick={clearSearched}>Plant DB</h1>
+        <h1 onClick={clearSearched}>Plant Sack</h1>
       </Logo>
       <form onSubmit={handleSubmit}>
         <input type='text' onChange={handleInput} value={query} required />
         <button type='submit'>Search</button>
       </form>
-      {isLoading && <LoadingGifStyled src={loadingGif} />}
+      {isLoading && (
+        <LoadingPicStyled variants={spin} animate='show' src={loadingPic} />
+      )}
     </Header>
   )
 }
@@ -71,17 +73,17 @@ const Logo = styled(motion.div)`
   margin-top: 3rem;
   margin-bottom: 0.5rem;
   h1 {
-    font-size: 3rem;
-    font-family: 'Yellowtail', cursive;
+    font-size: 4rem;
+    font-family: 'Sigmar One', cursive;
     cursor: pointer;
     display: inline;
   }
 `
 
-const LoadingGifStyled = styled(motion.img)`
+const LoadingPicStyled = styled(motion.img)`
   width: 100px;
   height: 100px;
-  margin: 1rem auto 0 auto;
+  margin: 1.5rem auto 0 auto;
 `
 
 export default Nav
