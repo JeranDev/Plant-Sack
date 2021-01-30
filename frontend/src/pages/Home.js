@@ -13,7 +13,15 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { fadeIn } from '../animations'
 
-const Home = () => {
+const Home = ({ history, match }) => {
+  if (match.params.id) {
+    setTimeout(() => {
+      if (document.getElementsByClassName('shadow').length === 0) {
+        history.push('/')
+      }
+    }, 3000)
+  }
+
   //Get Plant Data
   const {
     initialPlants,

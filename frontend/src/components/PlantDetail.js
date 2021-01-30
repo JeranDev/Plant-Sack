@@ -52,7 +52,7 @@ const PlantDetail = () => {
             />
             {plantDetail.data.main_species.images.leaf && (
               <motion.div>
-                <motion.h3>Leaf</motion.h3>
+                <ImageHeader>Leaf</ImageHeader>
                 <motion.img
                   src={plantDetail.data.main_species.images.leaf[0].image_url}
                   alt={plantDetail.data.common_name}
@@ -61,7 +61,7 @@ const PlantDetail = () => {
             )}
             {plantDetail.data.main_species.images.bark && (
               <motion.div>
-                <motion.h3>Bark</motion.h3>
+                <ImageHeader>Bark</ImageHeader>
                 <motion.img
                   src={plantDetail.data.main_species.images.bark[0].image_url}
                   alt={plantDetail.data.common_name}
@@ -70,7 +70,7 @@ const PlantDetail = () => {
             )}
             {plantDetail.data.main_species.images.flower && (
               <motion.div>
-                <motion.h3>Flower</motion.h3>
+                <ImageHeader>Flower</ImageHeader>
                 <motion.img
                   src={plantDetail.data.main_species.images.flower[0].image_url}
                   alt={plantDetail.data.common_name}
@@ -79,7 +79,7 @@ const PlantDetail = () => {
             )}
             {plantDetail.data.main_species.images.habit && (
               <motion.div>
-                <motion.h3>Habit</motion.h3>
+                <ImageHeader>Habit</ImageHeader>
                 <motion.img
                   src={plantDetail.data.main_species.images.habit[0].image_url}
                   alt={plantDetail.data.common_name}
@@ -88,7 +88,7 @@ const PlantDetail = () => {
             )}
             {plantDetail.data.main_species.images.fruit && (
               <motion.div>
-                <motion.h3>Fruit</motion.h3>
+                <ImageHeader>Fruit</ImageHeader>
                 <motion.img
                   src={plantDetail.data.main_species.images.fruit[0].image_url}
                   alt={plantDetail.data.common_name}
@@ -119,6 +119,8 @@ const CardShadow = styled(motion.div)`
   top: 0;
   left: 0;
   z-index: 5;
+  @media (max-width: 600px) {
+  }
 `
 
 const Detail = styled(motion.div)`
@@ -131,9 +133,10 @@ const Detail = styled(motion.div)`
   z-index: 10;
   color: black;
   img {
-    max-width: 600px;
-    max-height: 600px;
+    width: 400px;
+    height: 400px;
     object-fit: cover;
+    margin-bottom: 3rem;
   }
   h1 {
     font-size: 4rem;
@@ -145,22 +148,17 @@ const Detail = styled(motion.div)`
     margin-bottom: 2rem;
     color: darkgreen;
   }
-  h3 {
-    font-size: 2rem;
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
-  }
-  @media screen and (max-width: 1000px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: 120%;
     h1 {
-      font-size: 2rem;
-    }
-    h2 {
       font-size: 1.5rem;
     }
+    h2 {
+      font-size: 1rem;
+    }
     img {
-      max-width: 100%;
-      max-height: 400px;
+      width: 200px;
+      height: 200px;
     }
   }
 `
@@ -169,6 +167,24 @@ const Info = styled(motion.div)`
   margin-bottom: 2rem;
   font-size: 1.5rem;
   line-height: 1.5;
+  h3 {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  @media (max-width: 600px) {
+    p {
+      font-size: 0.8rem;
+    }
+  }
+`
+
+const ImageHeader = styled(motion.h3)`
+  color: green;
+  font-size: 3rem;
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 `
 
 export default PlantDetail

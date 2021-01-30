@@ -19,6 +19,10 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  @media (max-width: 600px) {
+    overflow: scroll;
+  }
+  
 `
 
 export default GlobalStyles

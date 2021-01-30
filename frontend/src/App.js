@@ -4,17 +4,15 @@ import Nav from './components/Nav'
 //Styles
 import GlobalStyles from './components/GlobalStyles'
 //Router
-import { Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className='App'>
+    <Router>
       <GlobalStyles />
       <Nav />
-      <Route path={['/plant/:id', '/']}>
-        <Home />
-      </Route>
-    </div>
+      <Route path={['/plant/:id', '/']} component={Home} />
+    </Router>
   )
 }
 
