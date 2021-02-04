@@ -46,52 +46,91 @@ const PlantDetail = () => {
               {plantDetail.data.main_species.images.leaf && (
                 <motion.div>
                   <ImageHeader>Leaf</ImageHeader>
-                  <motion.img
-                    src={plantDetail.data.main_species.images.leaf[0].image_url}
-                    alt={plantDetail.data.common_name}
-                  />
+                  <motion.a
+                    href={
+                      plantDetail.data.main_species.images.leaf[0].image_url
+                    }
+                    target='_blank'
+                  >
+                    <motion.img
+                      src={
+                        plantDetail.data.main_species.images.leaf[0].image_url
+                      }
+                      alt={plantDetail.data.common_name}
+                    />
+                  </motion.a>
                 </motion.div>
               )}
               {plantDetail.data.main_species.images.bark && (
                 <motion.div>
                   <ImageHeader>Bark</ImageHeader>
-                  <motion.img
-                    src={plantDetail.data.main_species.images.bark[0].image_url}
-                    alt={plantDetail.data.common_name}
-                  />
+                  <motion.a
+                    href={
+                      plantDetail.data.main_species.images.bark[0].image_url
+                    }
+                    target='blank'
+                  >
+                    <motion.img
+                      src={
+                        plantDetail.data.main_species.images.bark[0].image_url
+                      }
+                      alt={plantDetail.data.common_name}
+                    />
+                  </motion.a>
                 </motion.div>
               )}
               {plantDetail.data.main_species.images.flower && (
                 <motion.div>
                   <ImageHeader>Flower</ImageHeader>
-                  <motion.img
-                    src={
+                  <motion.a
+                    href={
                       plantDetail.data.main_species.images.flower[0].image_url
                     }
-                    alt={plantDetail.data.common_name}
-                  />
+                    target='_blank'
+                  >
+                    <motion.img
+                      src={
+                        plantDetail.data.main_species.images.flower[0].image_url
+                      }
+                      alt={plantDetail.data.common_name}
+                    />
+                  </motion.a>
                 </motion.div>
               )}
               {plantDetail.data.main_species.images.habit && (
                 <motion.div>
                   <ImageHeader>Habit</ImageHeader>
-                  <motion.img
-                    src={
+                  <motion.a
+                    href={
                       plantDetail.data.main_species.images.habit[0].image_url
                     }
-                    alt={plantDetail.data.common_name}
-                  />
+                    target='_blank'
+                  >
+                    <motion.img
+                      src={
+                        plantDetail.data.main_species.images.habit[0].image_url
+                      }
+                      alt={plantDetail.data.common_name}
+                    />
+                  </motion.a>
                 </motion.div>
               )}
               {plantDetail.data.main_species.images.fruit && (
                 <motion.div>
                   <ImageHeader>Fruit</ImageHeader>
-                  <motion.img
-                    src={
+                  <motion.a
+                    href={
                       plantDetail.data.main_species.images.fruit[0].image_url
                     }
-                    alt={plantDetail.data.common_name}
-                  />
+                    target='_blank'
+                  >
+                    <motion.img
+                      src={
+                        plantDetail.data.main_species.images.fruit[0].image_url
+                      }
+                      alt={plantDetail.data.common_name}
+                    />
+                  </motion.a>
                 </motion.div>
               )}
             </Images>
@@ -119,8 +158,6 @@ const CardShadow = styled(motion.div)`
   top: 0;
   left: 0;
   z-index: 5;
-  @media (max-width: 600px) {
-  }
 `
 
 const Detail = styled(motion.div)`
@@ -136,7 +173,7 @@ const Detail = styled(motion.div)`
     width: 400px;
     height: 400px;
     object-fit: cover;
-    margin-bottom: 3rem;
+    cursor: pointer;
   }
   h1 {
     font-size: 4rem;
@@ -183,6 +220,9 @@ const Images = styled(motion.div)`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  div {
+    margin: 2rem 0.5rem;
+  }
 `
 
 const ImageHeader = styled(motion.h3)`

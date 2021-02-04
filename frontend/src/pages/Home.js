@@ -14,12 +14,9 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '../animations'
 
 const Home = ({ history, match }) => {
+  //PlantDetail Reload Fix
   if (match.params.id) {
-    setTimeout(() => {
-      if (document.getElementsByClassName('shadow').length === 0) {
-        history.push('/')
-      }
-    }, 3000)
+    window.onload = () => history.push('/')
   }
 
   //Get Plant Data

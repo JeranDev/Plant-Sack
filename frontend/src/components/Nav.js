@@ -77,6 +77,7 @@ const Logo = styled(motion.div)`
     font-family: 'Sigmar One', cursive;
     cursor: pointer;
     display: inline;
+    line-height: 1;
   }
 `
 
