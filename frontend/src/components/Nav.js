@@ -59,6 +59,7 @@ const Header = styled(motion.div)`
     color: white;
     background: green;
     padding: 1rem;
+    margin: 0.5rem;
     border: none;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
